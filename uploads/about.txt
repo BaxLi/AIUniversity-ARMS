@@ -1,0 +1,1 @@
+In this folder are saved temporarly the frames what we got via post request
