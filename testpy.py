@@ -26,17 +26,15 @@ def get_relativeness(b_h, b_g):
     intersection = width_i * height_i
     return (intersection / ((xg2 - xg1) * (yg2 - yg1))) #its not iou a think that like this it is more informative for our purpose
 
-# Load the YOLOv8 model
-model_human = YOLO('yolov8n.pt')
+# Load the YOLOv8 weights to the Yolo model 
+model_human = YOLO('weights/train14_3cl_340ep.pt')
 
-model_gun = YOLO("D:\SAJAT\\00_ML\INTER\models\cleanDSv24_1class_gun_medium_80epochs\cleanDS_1class_gun_medium_+epochs\cleanDS_1class_gun_medium_+epochs\\runs\detect\\train\weights\\best.pt")
+model_gun = YOLO('weights/train14_3cl_340ep.pt')
 
-
-i=0
-
-results_human = model_human.predict(orig_dir, conf = 0.8, verbose = False, classes = [0]) #set up the prediction of human model
+results_human = model_human.predict(orig_dir, conf = 0.5, verbose = False, classes = [0]) #set up the prediction of human model
 results_gun = model_gun.predict(orig_dir, conf = 0.5, verbose = False, classes = [2]) #set up the prediction of gun model
 
+is_alarm = False
 
 for result_h in results_human:
             boxes_h = result_h.boxes
@@ -49,5 +47,10 @@ for result_h in results_human:
                     for box_g in boxes_g:          
                         b_g = box_g.xyxy[0]  # get box coordinates in (top, left, bottom, right) format                       
                         #print(get_relativeness(b_h, b_g))
-                        if get_relativeness(b_h, b_g) > 0.3:
-                              print("alarm")
+                        if get_relativeness(b_h, b_g) > 0.3: #the comman field of boundig boxes more than 30%
+                              is_alarm = True #we have weapon on the frame
+
+if is_alarm:
+    print("alarm")
+else:
+    print("no alarm")
