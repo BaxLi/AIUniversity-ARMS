@@ -1,5 +1,5 @@
 import sys
-import cv2
+import os
 import numpy as np
 from ultralytics import YOLO
 from ultralytics.yolo.utils.plotting import Annotator
@@ -49,6 +49,8 @@ for result_h in results_human:
                         #print(get_relativeness(b_h, b_g))
                         if get_relativeness(b_h, b_g) > 0.3: #the comman field of boundig boxes more than 30%
                               is_alarm = True #we have weapon on the frame
+
+os.remove(orig_dir) #delete the image after processing
 
 if is_alarm:
     print("alarm")
