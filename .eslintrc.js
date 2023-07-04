@@ -22,4 +22,12 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
   },
+  overrides: [
+    {
+      files: ['**/*.js', '**/*.jsx'],
+      rules: {
+        // If needed, specify any specific rules for JS and JSX files
+      },
+    },
+  ],
 };

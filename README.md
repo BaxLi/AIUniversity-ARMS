@@ -73,3 +73,5 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 Nest is [MIT licensed](LICENSE).
 
 Detecting arms on video snap's based on Nest JS and model provided by AI University project team
+
+Checking PR here https://github
