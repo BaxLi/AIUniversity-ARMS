@@ -20,7 +20,7 @@ export class AppController {
   @Post('file')
   @UseInterceptors(FileInterceptor('file')) 
   async getPredict(@UploadedFile() file:Express.Multer.File): Promise<string> {
-    console.log('file: ', file);
+    console.log('file is: ', file);
     const imagePath = await this.imageService.saveImage(file.buffer, file.originalname); //this line from code of Anastasia
     return await this.appService.getPredict(imagePath);
   }
