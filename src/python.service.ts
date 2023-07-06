@@ -4,10 +4,15 @@ import * as path from 'path';
 
 @Injectable()
 export class PythonService {
-  async runScript(imagePath: string): Promise<string> {
+  async runScript(imageData: Buffer): Promise<string> {
     const scriptPath = path.join(__dirname, '..', 'python_script.py');
 
-    const process = spawn('python3', [scriptPath, imagePath]);
+    const process = spawn('python3', [scriptPath]);
+
+    // Pass the image data to the Python script using stdin
+    process.stdin.write(imageData);
+    process.stdin.end();
+
     let output = '';
 
     process.stdout.on('data', (data) => {

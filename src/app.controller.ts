@@ -14,8 +14,7 @@ export class AppController {
   @UseInterceptors(FileInterceptor('image'))
   async processImage(@UploadedFile() file: Express.Multer.File): Promise<string> {
     console.log('file:', file);
-    const imagePath = await this.imageService.saveImage(file.buffer, file.originalname);
-    const result = await this.pythonService.runScript(imagePath);
+    const result = await this.pythonService.runScript(file.buffer);
     return result;
   }
 }
