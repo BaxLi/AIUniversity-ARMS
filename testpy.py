@@ -1,7 +1,7 @@
 import sys
 import os
 import numpy as np
-from ultralytics import YOLO
+from ultralytics.yolo.engine.model import YOLO
 from ultralytics.yolo.utils.plotting import Annotator
 
 orig_dir = str(sys.argv[1])
