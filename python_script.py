@@ -12,10 +12,10 @@ def process_image(image_data):
     if image.mode != 'RGB':
         image = image.convert('RGB')
 
-    # Run YOLO on the image
-    # model = YOLO("yolov8s.yaml")  # build a new model from scratch
+    # Run YOLO on the image:
     model = YOLO("saved_weights/train14_3cl_340ep.pt")  # load a pretrained YOLOv8s weights
-    results = model.predict(source=image, classes=[0,2], conf=0.75)  # classes=[0,2], conf=0.75, stream=True, save=True
+    results = model.predict(source=image, classes=[0,2], conf=0.75)  # get model's predictions
+    # Extract information about number of guns and humans from results:
     humans = 0
     guns = 0
     for res in results:
@@ -27,7 +27,7 @@ def process_image(image_data):
                 guns += 1
     response = {"guns": guns, "humans": humans}
 
-    # Return the result as a JSON-encoded string
+    # Return the number of guns and humans as a JSON-encoded string
     return json.dumps(response)
 
 if __name__ == '__main__':
