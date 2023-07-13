@@ -13,7 +13,7 @@ def process_image(image_data):
         image = image.convert('RGB')
 
     # Run YOLO on the image
-    model = YOLO("yolov8s.yaml")  # build a new model from scratch
+    # model = YOLO("yolov8s.yaml")  # build a new model from scratch
     model = YOLO("saved_weights/train14_3cl_340ep.pt")  # load a pretrained YOLOv8s weights
     results = model.predict(source=image, classes=[0,2], conf=0.75)  # classes=[0,2], conf=0.75, stream=True, save=True
     humans = 0
